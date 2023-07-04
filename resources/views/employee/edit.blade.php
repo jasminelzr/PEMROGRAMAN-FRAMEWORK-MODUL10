@@ -46,7 +46,7 @@
         </div>
     </nav>
     <div class="container-sm mt-5">
-        <form action="{{ route('employees.update', ['employee' => $employee->id]) }}" method="POST">
+        <form action="{{ route('employees.update', ['employee' => $employee->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="row justify-content-center">
@@ -103,6 +103,31 @@
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="cv" class="form-label">Curriculum Vitae (CV)</label>
+                        @if ($employee->original_filename)
+                            <h5>{{ $employee->original_filename }}</h5>
+                            <a href="{{ route('employees.downloadFile', ['employeeId' => $employee->id]) }}"
+                                class="btn btn-primary btn-sm mt-2">
+                                <i class="bi bi-download me-1"></i> Download CV
+                            </a>
+                        @else
+                            <h5>Tidak ada</h5>
+                        @endif
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <input type="file" class="form-control @error('cv') is-invalid @enderror" name="cv"
+                            id="cv">
+                        @error('cv')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                        @if ($employee->cv)
+                            <small class="text-muted">CV already uploaded: <a
+                                    href="{{ asset('storage/' . $employee->cv) }}" target="_blank"
+                                    rel="noopener noreferrer">{{ $employee->cv }}</a></small>
+                        @endif
                     </div>
                     <hr>
                     <div class="row">

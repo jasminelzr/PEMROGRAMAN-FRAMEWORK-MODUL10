@@ -46,7 +46,7 @@
         </div>
     </nav>
     <div class="container-sm mt-5">
-        <form action="{{ route('employees.store') }}" method="POST">
+        <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row justify-content-center">
                 <div class="p-5 bg-light rounded-3 border col-xl-6">
@@ -97,6 +97,10 @@
                         </div>
                     </div>
                     <hr>
+                    <div class="col-md-12 mb-3">
+                        <label for="cv" class="form-label">Curriculum Vitae (CV)</label>
+                        <input type="file" class="form-control" name="cv" id="cv">
+                    </div>
                     <div class="row">
                         <div class="col-md-6 d-grid">
                             <a href="{{ route('employees.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Cancel</a>
